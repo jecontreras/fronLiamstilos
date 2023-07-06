@@ -20,6 +20,7 @@ export class ChecktDialogComponent implements OnInit {
   disabled:boolean = false;
   valor:number = 0;
   dataUser:any = {};
+  tiendaInfo:any = {};
 
   constructor(
     public dialogRef: MatDialogRef<ChecktDialogComponent>,
@@ -30,11 +31,12 @@ export class ChecktDialogComponent implements OnInit {
     private _router: Router,
     private _store: Store<STORAGES>,
     private socialAuthService: SocialAuthService,
-  ) { 
+  ) {
     this._store.subscribe((store: any) => {
       store = store.name;
       if( !store ) return false;
       this.dataUser = store.user || {};
+      this.tiendaInfo = store.configuracion || {};
     });
   }
 
@@ -45,6 +47,7 @@ export class ChecktDialogComponent implements OnInit {
     this.data.cantidadAd = this.datas.cantidadAd || 1;
     this.data.costo = this.datas.costo || 105000;
     this.data.opt = this.datas.opt;
+    this.data.color = this.datas.color;
     this.suma();
     this.socialAuthService.authState.subscribe( async (user) => {
       let result = await this._user.initProcess( user );
@@ -61,7 +64,7 @@ export class ChecktDialogComponent implements OnInit {
     let data:any = {
       "ven_tipo": "whatsapp",
       "usu_clave_int": 1,
-      "ven_usu_creacion": "joseeduar147@gmail.com",
+      "ven_usu_creacion": "arleytienda@gmail.com",
       "ven_fecha_venta": moment().format("DD/MM/YYYY"),
       "cob_num_cedula_cliente": this.data.cedula,
       "ven_nombre_cliente": this.data.nombre,
@@ -72,9 +75,9 @@ export class ChecktDialogComponent implements OnInit {
       "ven_cantidad": this.datas.cantidadAd || 1,
       "ven_tallas": this.data.talla,
       "ven_precio": this.datas.pro_uni_venta,
-      "ven_total": this.data.costo || 0,
+      "ven_total": ( this.data.costo + ( this.data.pro_vendedor || 0 ) ) || 0,
       "ven_ganancias": 0,
-      "prv_observacion": "ok la talla es " + this.data.talla,
+      "ven_observacion": "ok la talla es " + this.data.talla + " el color "+ this.data.color,
       "ven_estado": 0,
       "create": moment().format("DD/MM/YYYY"),
       "apartamento": this.data.apartamento || '',
@@ -146,19 +149,20 @@ export class ChecktDialogComponent implements OnInit {
 
   mensajeWhat(){
     let mensaje: string = ``;
-    mensaje = `https://wa.me/573156027551?text=${encodeURIComponent(`
+    mensaje = `https://wa.me/57${ this.tiendaInfo.numeroCelular }?text=${encodeURIComponent(`
       Hola Servicio al cliente, como esta, saludo cordial,
       para confirmar adquiere este producto
       Nombre de cliente: ${ this.data.nombre }
-      *celular:*${ this.data.telefono }
-      *talla:* ${ this.data.talla }
-      *cantidad:* ${ this.data.cantidadAd || 1 }
-      Ciudad: ${ this.data.ciudad }
-      ${ this.data.barrio } 
-      Dirección: ${ this.data.direccion }
-      ${ this.datas.pro_nombre }
+      *Celular:*${ this.data.telefono }
+      *Talla:* ${ this.data.talla }
+      *Cantidad:* ${ this.data.cantidadAd || 1 }
+      *Color:* ${ this.data.color }
+      *Ciudad:* ${ this.data.ciudad }
+      *Barrio:*${ this.data.barrio }
+      *Dirección:* ${ this.data.direccion }
+      *Nombre Cliente:*${ this.datas.pro_nombre }
 
-      TOTAL FACTURA ${( this.data.costo )}
+      TOTAL FACTURA ${( this.data.costo + ( this.data.pro_vendedor || 0 ) )}
       🤝Gracias por su atención y quedo pendiente para recibir por este medio la imagen de la guía de despacho`)}`;
     console.log(mensaje);
     window.open(mensaje);

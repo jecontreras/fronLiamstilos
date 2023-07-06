@@ -89,7 +89,7 @@ export class CatalogoComponent implements OnInit {
   },{
     nombre: "Julia Melgar",
     fecha: "2023-03-16",
-    descripcion: "très belles Calzado"
+    descripcion: "Son bellos"
   }];
 
   durationInSeconds = 5;
@@ -125,7 +125,9 @@ export class CatalogoComponent implements OnInit {
     this.imageObject = [];
     this._producto.get( { where: { id: this.id } } ).subscribe(( res:any )=>{
       this.data = res.data[0] || {}
-      this.listComentario.push( ...this.data.listComentarios )
+      try {
+        if( this.data.listComentarios ) this.listComentario.push( ...this.data.listComentarios )
+      } catch (error) { }
       this.urlFoto = this.data.foto;
       for( let row of this.data.listColor ){
         if( row.galeriaList)for( let key of row.galeriaList ) this.listGaleria.push( { ... key, name: row.talla } );
@@ -140,6 +142,9 @@ export class CatalogoComponent implements OnInit {
         id: row.id,
         title: ""
       });
+      try {
+        this.data.listTallas = this.data.listColor[0].tallaSelect.filter( item => item.cantidad );
+      } catch (error) {}
       console.log("***27", this.data, "*******", this.listGaleria, this.imageObject )
     });
   }
@@ -160,7 +165,7 @@ export class CatalogoComponent implements OnInit {
       ENVÍO DE 4 -8 DÍAS HÁBILES GRATIS
     `) } `;
     window.open( this.urlWhatsapp );*/
-    this.urlWhatsapp = `https://wa.me/573156027551?text=${encodeURIComponent(`
+    this.urlWhatsapp = `https://wa.me/57${ this.tiendaInfo.numeroCelular }?text=${encodeURIComponent(`
           DATOS DE CONFIRMACIÓN DE COMPRA:
           Nombre: ${ this.form.nombre }
           Celular: ${ this.form.celular }
@@ -209,6 +214,7 @@ export class CatalogoComponent implements OnInit {
   handleColor(){
     console.log("***", this.data, this.form)
     this.urlFoto = ( this.data.listColor.find( item => item.talla == this.form.color ) ).foto;
+    this._tools.openFotoAlert( this.urlFoto );
   }
   validador(){
     if( !this.form.nombre ) { this._tools.tooast( { title: "Error falta el nombre ", icon: "error"}); return false; }
@@ -280,7 +286,7 @@ export class CatalogoComponent implements OnInit {
   }
 
   comprarArticulo(){
-    window.open( "https://wa.link/5el24m", "Mas Informacion", "width=640, height=480");
+    window.open( this.tiendaInfo.urlAcesor , "Mas Informacion", "width=640, height=480");
   }
 
   openSnackBar() {
@@ -294,7 +300,8 @@ export class CatalogoComponent implements OnInit {
   }
 
   buyArticulo( cantidad:number, opt ){
-    this.suma();
+    window.document.scrollingElement.scrollTop=3000;
+    /*this.suma();
     //this.AgregarCart();
     this.data.cantidadAd = opt == true ? cantidad : this.pedido.cantidad || cantidad;
     this.data.talla = this.pedido.talla;
@@ -308,7 +315,7 @@ export class CatalogoComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
-    });
+    });*/
   }
 
 
@@ -358,9 +365,17 @@ export class PizzaPartyComponent {
       return Math.floor(Math.random() * max);
     }
     this.txtData = this.data[getRandomInt(10)].txt;
+    this.audioNotificando('./assets/sonidos/notificando.mp3');
     setInterval(()=>{
       this.txtData = this.data[getRandomInt(10)].txt;
     }, 50000 )
+  }
+  audioNotificando(obj:string){
+    console.log("**SONAR")
+    let sonido = new Audio();
+    sonido.src = obj;
+    sonido.load();
+    sonido.play();
   }
   // Expected output: 0, 1 or 2
 }
