@@ -380,5 +380,12 @@ export class ProductosViewComponent implements OnInit {
 
   }
 
+  handleChat(){
+    let url: string = `https://wa.me/57${this.tiendaInfo.numeroCelular }?text=${encodeURIComponent(`
+        Necesito mas informacion Gracias!
+    `)}`
+    window.open( url, "Mas Informacion", "width=640, height=480");
+  }
+
 
 }

@@ -20,3 +20,12 @@
   padding: 6px;
   border-radius: 10px;
 }
+#whatsapp {
+  position: fixed;
+  bottom: 46px;
+  right:20px;
+}
+svg {
+  width: 60px;
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,.4));
+}
