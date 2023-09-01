@@ -129,9 +129,9 @@ export class ProductosViewComponent implements OnInit {
         this.data.listTallas = _.orderBy( this.data.listTallas , ['tal_descripcion'], ['DEC'] );
         console.log( "129", this.data )
       } catch (error) {}
-    this.viewsImagen = this.data.foto; 
-    if( !this.data.listComentarios[0] ) this.data.listComentarios = []; 
-    this.listGaleria = this.data.galeria || []; 
+    this.viewsImagen = this.data.foto;
+    if( !this.data.listComentarios[0] ) this.data.listComentarios = [];
+    this.listGaleria = this.data.galeria || [];
     this.listGaleria.push( { id: 1000, pri_imagen: this.data.foto }) }, error=> { console.error(error); this._tools.presentToast('Error de servidor'); });
   }
 
@@ -362,7 +362,7 @@ export class ProductosViewComponent implements OnInit {
   }
 
   validarNumero(){
-    return this.tiendaInfo.numeroCelular || "3223519032";
+    return this.tiendaInfo.numeroCelular || "3208429429";
   }
 
   handleSelect( item ){
@@ -374,16 +374,17 @@ export class ProductosViewComponent implements OnInit {
   }
 
   checkTalla( item ){
-    this.pedido.talla = item.tal_descripcion; 
+    this.pedido.talla = item.tal_descripcion;
     for( let row of this.data.listTallas ) row.check1 = false;
     item.check1 = !item.check1;
 
   }
 
-  handleChat(){
-    let url: string = `https://wa.me/57${this.tiendaInfo.numeroCelular }?text=${encodeURIComponent(`
-        Necesito mas informacion Gracias!
-    `)}`
+  handleAdviser(){
+    let number = this.tiendaInfo.numeroCelular;
+    if(number.length == 12 ) number;
+    else number='57'+number;
+    let url = `https://wa.me/${ number }?text=${encodeURIComponent(`👉Hola buenas! 🎉 Me gustaria mas informacion gracias 👈`)}`;
     window.open( url, "Mas Informacion", "width=640, height=480");
   }
 
