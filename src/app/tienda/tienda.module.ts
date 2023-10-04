@@ -21,11 +21,12 @@ import { CompletarComponent } from './completar/completar.component';
 import { ChecktDialogComponent } from './checkt-dialog/checkt-dialog.component';
 import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.component';
 import { CatalogoComponent } from './catalogo/catalogo.component';
+import { PoliciesComponent } from './policies/policies.component';
 
 
 @NgModule({
   entryComponents: [ InfoProductoComponent,ChecktDialogComponent ],
-  declarations: [MainsComponent, TiendaComponent, ProductosComponent, FooterComponent, MenuComponent, InfoProductoComponent, ProductosViewComponent, ContactoComponent, ChecktComponent, CarritoComponent, CompletarComponent, ChecktDialogComponent, DetallePedidoComponent, CatalogoComponent],
+  declarations: [MainsComponent, TiendaComponent, ProductosComponent, FooterComponent, MenuComponent, InfoProductoComponent, ProductosViewComponent, ContactoComponent, ChecktComponent, CarritoComponent, CompletarComponent, ChecktDialogComponent, DetallePedidoComponent, CatalogoComponent, PoliciesComponent],
   imports: [
     TiendaRoutingModule,
     CommonModule,
