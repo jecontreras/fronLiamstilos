@@ -354,7 +354,7 @@ export class FormproductosComponent implements OnInit {
     //this.dialog.closeAll();
   }
   updates() {
-    this.data = _.omit(this.data, [ 'pro_usu_creacion' ])
+    this.data = _.omit(this.data, [ 'pro_usu_creacion', 'listTallas', 'idAleatorio' ])
     this.data = _.omitBy(this.data, _.isNull);
     if( this.rolUser == 'administrador' ) this.data.pro_activo = 0;
     this._productos.update(this.data).subscribe((res: any) => {
