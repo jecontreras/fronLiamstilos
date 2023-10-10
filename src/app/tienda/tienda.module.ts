@@ -22,7 +22,7 @@ import { ChecktDialogComponent } from './checkt-dialog/checkt-dialog.component';
 import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.component';
 import { CatalogoComponent } from './catalogo/catalogo.component';
 import { PoliciesComponent } from './policies/policies.component';
-
+import { SwiperModule } from "swiper/angular";
 
 @NgModule({
   entryComponents: [ InfoProductoComponent,ChecktDialogComponent ],
@@ -35,7 +35,8 @@ import { PoliciesComponent } from './policies/policies.component';
     MyOwnCustomMaterialModule,
     FormsModule,
     NgxImageZoomModule,
-    NgImageSliderModule
+    NgImageSliderModule,
+    SwiperModule
   ],
   exports: [ InfoProductoComponent ]
 })

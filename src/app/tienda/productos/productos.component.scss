@@ -42,3 +42,114 @@ div.scrollmenu a {
 div.scrollmenu a:hover {
   background-color: #777;
 }
+
+.search-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  overflow: hidden;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.search-input {
+  border: none;
+  padding: 10px;
+  flex: 1;
+  outline: none;
+}
+
+.search-icon {
+  background-color: #008116;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.search-icon i {
+  font-size: 1.5em;
+}
+.product-list-container {
+}
+
+.product-list-container .aa-product-catg li {
+  margin-bottom: 20px;
+}
+
+.product-list-container .img-contenedor {
+  position: relative;
+}
+
+.product-list-container .aa-product-img {
+  display: block;
+  width: 100%;
+}
+
+.product-list-container .aa-add-card-btn {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: #008116;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.product-list-container .aa-add-card-btn:hover {
+  background: #005b0b;
+}
+
+.product-list-container .product-rating {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.product-list-container .product-rating .fa {
+  color: #ffcc00; /* Adjust color as needed */
+}
+
+.product-list-container .aa-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: red;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+
+/* Estilo para el contenedor del banner */
+.swiper-container {
+  width: 1652px;
+  height: 160px;
+}
+
+/* Estilo para cada slide */
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ajusta según la relación de aspecto de tus imágenes */
+}
+
+/* Estilo para los controles de navegación (opcional) */
+.swiper-button-next, .swiper-button-prev {
+  color: #fff;
+}
+
+
+.bg-yellow {
+  background-color: yellow;
+}
+.transition {
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.active-slide {
+  background-color: green;
+  color: #fff;
+}
+.bg-blue {
+  background-color: blue;
+  color: #fff;
+}

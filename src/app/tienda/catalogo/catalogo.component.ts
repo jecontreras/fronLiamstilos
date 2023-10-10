@@ -113,7 +113,7 @@ export class CatalogoComponent implements OnInit {
     });
     setInterval(()=>{
       this.openSnackBar();
-    }, 50000 );
+    }, 30000 );
   }
 
   ngOnInit(): void {
@@ -286,7 +286,11 @@ export class CatalogoComponent implements OnInit {
   }
 
   comprarArticulo(){
-    window.open( this.tiendaInfo.urlAcesor , "Mas Informacion", "width=640, height=480");
+    let number = this.tiendaInfo.numeroCelular;
+    if(number.length == 12 ) number;
+    else number='57'+number;
+    let url = `https://wa.me/${ number }?text=${encodeURIComponent(`👉Hola buenas! 🎉 Me gustaria mas informacion gracias de este modele 👉 ${ this.data.foto } 👈`)}`;
+    window.open( url, "Mas Informacion", "width=640, height=480");
   }
 
   openSnackBar() {

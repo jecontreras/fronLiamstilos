@@ -115,13 +115,17 @@ text-align: center;
 <div class=inner-spacer style="border-top: 2px solid white;"></div>
 </div>
 </div>
-<div class=element-wrapper>
-<div class="img el-290431" style="margin: 5px 0px 0px;">
-<style> .el-290431 { align-items: center; } </style>
-<a target="_self">
-  <img  src="{{data.foto}}" data-srcset="{{data.foto}} 1x" alt data-sizes=auto data-src="{{data.foto}}" class="lazyload" width=100% height=auto>
-</a>
-</div>
+<div class="element-wrapper">
+  <div class="img el-290431" style="margin: 5px 0px 0px;">
+    <style>
+      .el-290431 {
+        align-items: center;
+      }
+    </style>
+    <a target="_self" class="image-link">
+      <img src="{{data.foto}}" data-srcset="{{data.foto}} 1x" alt data-sizes="auto" data-src="{{data.foto}}" class="lazyload" width="100%" height="auto">
+    </a>
+  </div>
 </div>
 <div class=element-wrapper>
 <div
@@ -165,13 +169,20 @@ style="font-size: 178%; line-height: 1; border-style: none; border-width: medium
 </div>
 <div class=element-wrapper>
 <div class="image-slider el-36582" style="margin: 10px 0px 0px; object-fit: contain;">
-<div class=is-image-wrapper>
-<div class="image-resize img">
-  <img [src]="urlFoto" data-srcset="{{urlFoto}}?auto=compress,format&optimize=medium&fit=clip&w=100%&h=auto 1x"
-    alt data-sizes=auto data-src="{{urlFoto}}?auto=compress,format&optimize=medium&fit=clip&w=100%&h=auto"
-    class=lazyload style="object-fit: contain;" width=100% height=auto>
+  <div class="image-wrapper">
+    <div class="image-resize img">
+      <img
+        [src]="urlFoto"
+        data-srcset="{{urlFoto}}?auto=compress,format&optimize=medium&fit=clip&w=100%&h=auto 1x"
+        alt
+        data-sizes="auto"
+        data-src="{{urlFoto}}?auto=compress,format&optimize=medium&fit=clip&w=100%&h=auto"
+        class="lazyload image-zoom"
+        width="100%"
+        height="auto"
+      />
+    </div>
   </div>
-</div>
 <div class=is-thumbs-wrapper>
 <div class="is-thumbnails" *ngIf="listGaleria.length <= 5">
 <div
@@ -400,22 +411,26 @@ style="line-height: 1; margin: 10px 0px; padding: 5px; text-shadow: transparent 
       <div class="form-element required input" style="margin: 10px 0px 0px;" index=3 step=1 >
         <label class=fe-label style="color: rgb(37, 42, 50); text-align: left; font-weight: normal; font-style: normal;">Talla &nbsp;
         </label>
-        <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="form.talla" placeholder="Ingresa tu Talla ( Nacional )"
+        <select  *ngIf="data['listTallas']?.length" class="form-control" id="exampleFormControlSelect1" [(ngModel)]="form.talla" placeholder="Ingresa tu Talla ( Nacional )"
           style="background-color: rgb(255, 255, 255); color: rgb(37, 42, 50); text-align: left; font-weight: normal; font-style: normal; height: 44px; border-radius: 5px;">
           <option *ngFor="let row of data.listTallas" [value]="row.tal_descripcion">{{ row.tal_descripcion }} </option>
         </select>
+        <input name=color *ngIf="!data['listTallas']?.length" data-type=text placeholder="Ingresa tu Talla ( Nacional )" [(ngModel)]="form.talla"
+          style="background-color: rgb(255, 255, 255); color: rgb(37, 42, 50); text-align: left; font-weight: normal; font-style: normal;">
       </div>
     </div>
     <div>
       <div class="form-element required input" style="margin: 10px 0px 0px;" index=3 step=1 >
         <label class=fe-label style="color: rgb(37, 42, 50); text-align: left; font-weight: normal; font-style: normal;">Color &nbsp;
         </label>
-        <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="form.color" placeholder="Ingresa tu Color Preferido"
+        <select *ngIf="data['listColor']?.length" class="form-control" id="exampleFormControlSelect1" [(ngModel)]="form.color" placeholder="Ingresa tu Color Preferido"
           style="background-color: rgb(255, 255, 255); color: rgb(37, 42, 50); text-align: left; font-weight: normal; font-style: normal; height: 44px; border-radius: 5px;"
             (change)="handleColor()"
           >
           <option *ngFor="let row of data.listColor " [value]="row.talla ">{{ row.talla }} </option>
         </select>
+        <input name=color *ngIf="!data['listColor']?.length" data-type=text placeholder="Ingresa tu Color Preferido" [(ngModel)]="form.color"
+          style="background-color: rgb(255, 255, 255); color: rgb(37, 42, 50); text-align: left; font-weight: normal; font-style: normal;">
       </div>
     </div>
     <div>
@@ -639,56 +654,39 @@ align-items: flex-end;
 </div>
 </div>
 </section>
-</main>
+  </main>
 </div>
 <style id=el-hover-styles></style>
 
   <!-- Apps Body -->
   <div>
-    <div class="aa-product-review-area">
+    <div class="features-section">
       <h4>Detalles</h4>
-      <div class="row">
-        <div class="col-12">
-          <div class="d-flex justify-content-center">
-            <div>
-              <img src="./assets/img/envios.png" style="width: 320px;">
-              <img src="./assets/img/compra.jpg" style="width: 320px;">
-              <img src="./assets/img/comercio.png" style="width: 320px;">
-            </div>
-          </div>
-        </div>
-        <div class="col-12" *ngIf="data['pro_categoria']?.pro_categoria == 16">
-          <h5> 🚚 ENVIO NACIONALES Y PAGAS CUANDO RECIBES EL PRODUCTO 🚚
-            Nuestro tallaje es nacional, un poco pequeño sugerimos solicitar una talla más a la que te de en
-            la siguiente tabla
-          </h5>
-        </div>
-        <div class="col-12" *ngIf="data['pro_categoria']?.id == 16">
-          <img src="./assets/img/tallas.jpg" style="width: 320px;">
-        </div>
+      <div class="feature-images">
+        <img src="./assets/img/envios.png" alt="Envíos seguros" class="feature-image">
+        <img src="./assets/img/compra.jpg" alt="Compra garantizada" class="feature-image">
+        <img src="./assets/img/comercio.png" alt="Garantía en tu compra" class="feature-image">
       </div>
     </div>
-    <div class="aa-product-review-area">
-      <h4>Comentarios</h4>
-      <ul class="aa-review-nav">
-        <li *ngFor="let item of data.listComentarios ">
-          <div class="media">
-            <div class="media-left">
-              <a href="#">
-                <img class="media-object" style="    width: 60px;" [src]="item.foto" alt="girl image">
-              </a>
+    <div class="testimonial-section">
+      <h2>Testimonios de nuestros clientes</h2>
+      <ul class="testimonial-list">
+        <li *ngFor="let item of data.listComentarios">
+          <div class="testimonial-item">
+            <div class="testimonial-image">
+              <img src="{{ item.foto }}" alt="{{ item.nombre }}">
             </div>
-            <div class="media-body">
-              <h4 class="media-heading"><strong>{{ item.nombre }}</strong> - <span> {{ item.fecha }} </span>
-              </h4>
-              <div class="aa-product-rating">
+            <div class="testimonial-content">
+              <h4 class="testimonial-author">{{ item.nombre }}</h4>
+              <p class="testimonial-date">{{ item.fecha }}</p>
+              <div class="testimonial-rating">
                 <span class="fa fa-star"></span>
                 <span class="fa fa-star"></span>
                 <span class="fa fa-star"></span>
                 <span class="fa fa-star"></span>
                 <span class="fa fa-star-o"></span>
               </div>
-              <p>{{ item.descripcion }}</p>
+              <p class="testimonial-description">{{ item.descripcion }}</p>
             </div>
           </div>
         </li>
@@ -700,15 +698,17 @@ align-items: flex-end;
 
 
   <script src="./assets/js/core.min.js" type="application/javascript"></script>
-<footer #nav style="position: fixed; top: 87%; left: auto;" *ngIf="tiendaInfo.urlAcesor">
+<footer #nav>
   <div class="container">
-    <div class="row">
+    <div class="row pointer" style="width: 100%;
+    background: #008116;
+    border-radius: 10px;" (click)="comprarArticulo()">
       <div class="col-12">
         <div class="d-flex justify-content-center">
           <div>
-            <a (click)="comprarArticulo( )" class="aa-add-to-cart-btn pointer"
-              style="    font-size: 210%; background: #008116; color: white; border-radius: 11px;"><span
-                class="fa fab fa-whatsapp"></span>Chatear con un asesor</a>
+            <a class="aa-add-to-cart-btn pointer">
+              <span class="fa fab fa-whatsapp"></span>Chatear con un asesor
+            </a>
           </div>
         </div>
       </div>

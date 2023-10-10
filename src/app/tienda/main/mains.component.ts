@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mains.component.scss']
 })
 export class MainsComponent implements OnInit {
-
+  views = true;
   constructor() { }
 
   ngOnInit() {
+    if( ( window.location.pathname.split("/") )[2]) this.views = false;
   }
 
 }

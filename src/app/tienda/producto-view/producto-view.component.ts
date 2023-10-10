@@ -42,36 +42,7 @@ export class ProductosViewComponent implements OnInit {
   listProductosHistorial:any = [];
   tiendaInfo:any = {};
   comentario:any = {};
-  imageObject:any = [
-    {
-      image: "./assets/imagenes/1920x700.png",
-      thumbImage: "./assets/imagenes/1920x700.png",
-      alt: '',
-      check: true,
-      id: 1,
-      title: ""
-    }
-  ];
-  imageObject2:any = [
-    {
-      image: "./assets/imagenes/1920x700.png",
-      thumbImage: "./assets/imagenes/1920x700.png",
-      alt: '',
-      check: true,
-      id: 1,
-      title: ""
-    }
-  ];
-  imageObject3:any = [
-    {
-      image: "./assets/imagenes/1920x700.png",
-      thumbImage: "./assets/imagenes/1920x700.png",
-      alt: '',
-      check: true,
-      id: 1,
-      title: ""
-    }
-  ];
+  imageObject:any = [];
 
   @ViewChild('nav', {static: true}) ds: NgImageSliderComponent;
   sliderWidth: Number = 1119;
@@ -131,7 +102,7 @@ export class ProductosViewComponent implements OnInit {
       } catch (error) {}
     this.viewsImagen = this.data.foto;
     if( !this.data.listComentarios[0] ) this.data.listComentarios = [];
-    this.listGaleria = this.data.galeria || [];
+    if( this.data.listaGaleria ) for( let row of this.data.listaGaleria ) this.listGaleria.push( { id: row.id, pri_imagen: row.foto });
     this.listGaleria.push( { id: 1000, pri_imagen: this.data.foto }) }, error=> { console.error(error); this._tools.presentToast('Error de servidor'); });
   }
 
@@ -148,7 +119,7 @@ export class ProductosViewComponent implements OnInit {
         codigo: this.data.codigo
       },
       page: 0,
-      limit: 20
+      limit: 30
     };
     let resultado:any = await this.getArticulos();
     for( let row of resultado ){
@@ -160,49 +131,8 @@ export class ProductosViewComponent implements OnInit {
           check: true,
           id: row.id,
           ids: row.id,
-          title: this._formato.monedaChange( 3, 2, row.pro_uni_venta || 0 )
-        }
-      );
-    }
-    this.query = {
-      where:{
-        pro_activo: 0
-      },
-      page: 1,
-      limit: 20
-    };
-    resultado = await this.getArticulos();
-    for( let row of resultado ){
-      this.imageObject2.push(
-        {
-          image: row.foto,
-          thumbImage: row.foto,
-          alt: '',
-          check: true,
-          id: row.id,
-          ids: row.id,
-          title: this._formato.monedaChange( 3, 2, row.pro_uni_venta || 0 )
-        }
-      );
-    }
-    this.query = {
-      where:{
-        pro_activo: 0
-      },
-      page: 2,
-      limit: 20
-    };
-    resultado = await this.getArticulos();
-    for( let row of resultado ){
-      this.imageObject3.push(
-        {
-          image: row.foto,
-          thumbImage: row.foto,
-          alt: '',
-          check: true,
-          id: row.id,
-          ids: row.id,
-          title: this._formato.monedaChange( 3, 2, row.pro_uni_venta || 0 )
+          title: row.pro_nombre,
+          pro_uni_venta: row.pro_uni_venta
         }
       );
     }
@@ -250,7 +180,7 @@ export class ProductosViewComponent implements OnInit {
   }
 
   viewProducto( obj:any ){
-    const dialogRef = this.dialog.open(InfoProductoComponent,{
+    /*const dialogRef = this.dialog.open(InfoProductoComponent,{
       width: '855px',
       maxHeight: "665px",
       data: { datos: obj }
@@ -258,11 +188,13 @@ export class ProductosViewComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
-    });
+    });*/
     let filtro = this.listProductosHistorial.filter( ( row:any ) => row.id == obj.id );
     if(filtro) return false;
     let accion = new ProductoHistorialAction( obj , 'post');
     this._store.dispatch( accion );
+    this.Router.navigate(['/tienda/productosView', obj.id]);
+    location.reload();
   }
 
   AgregarCart2( item:any ){
@@ -384,7 +316,7 @@ export class ProductosViewComponent implements OnInit {
     let number = this.tiendaInfo.numeroCelular;
     if(number.length == 12 ) number;
     else number='57'+number;
-    let url = `https://wa.me/${ number }?text=${encodeURIComponent(`👉Hola buenas! 🎉 Me gustaria mas informacion gracias 👈`)}`;
+    let url = `https://wa.me/${ number }?text=${encodeURIComponent(`👉Hola buenas! 🎉 Me gustaria mas informacion gracias de este modele 👉 ${ this.data.foto } 👈`)}`;
     window.open( url, "Mas Informacion", "width=640, height=480");
   }
 
