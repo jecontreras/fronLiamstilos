@@ -5,9 +5,9 @@
 export const environment = {
   production: false,
   //url: "http://localhost:1337",
-  url: "https://apiliamstilos-85b7a38a9497.herokuapp.com",
+  url: "https://liamapi-edcd359ce759.herokuapp.com",
   urlFront: "http://localhost:4200",
-  URLFILE: "https://lokomproaqui.herokuapp.com",
+  URLFILE: "https://apilokompro-c62b003f867d.herokuapp.com",
 };
 
 /*
