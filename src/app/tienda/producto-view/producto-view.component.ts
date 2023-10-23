@@ -190,9 +190,10 @@ export class ProductosViewComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });*/
     let filtro = this.listProductosHistorial.filter( ( row:any ) => row.id == obj.id );
-    if(filtro) return false;
-    let accion = new ProductoHistorialAction( obj , 'post');
-    this._store.dispatch( accion );
+    if(!filtro) {
+      let accion = new ProductoHistorialAction( obj , 'post');
+      this._store.dispatch( accion );
+    }
     this.Router.navigate(['/tienda/productosView', obj.id]);
     location.reload();
   }
